@@ -97,7 +97,6 @@ export default function Dashboard() {
 
       if (perfilError) {
         console.error('Error obteniendo perfil:', perfilError)
-        // Si no existe el perfil, redirige al login
         router.push('/login')
         return
       }
@@ -259,7 +258,7 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-neutral-900 to-stone-900 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-neutral-900 to-stone-900 flex items-center justify-center px-4">
         <div className="text-center">
           <div className="w-16 h-16 border-4 border-white border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-zinc-400 font-light">Cargando...</p>
@@ -271,21 +270,21 @@ export default function Dashboard() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-zinc-900 via-neutral-900 to-stone-900 relative">
       {/* Decorative elements */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
-      <div className="absolute bottom-0 left-0 w-80 h-80 bg-white/5 rounded-full blur-3xl" />
+      <div className="absolute top-0 right-0 w-72 sm:w-96 h-72 sm:h-96 bg-white/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-0 left-0 w-64 sm:w-80 h-64 sm:h-80 bg-white/5 rounded-full blur-3xl" />
 
       <header className="relative z-10 bg-white/5 backdrop-blur-sm border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="flex items-center gap-3 sm:gap-4">
               <div className="flex items-center justify-center w-10 h-10 bg-white rounded-lg">
                 <Building2 className="w-6 h-6 text-zinc-900" />
               </div>
               <div>
-                <h1 className="text-xl font-semibold text-white tracking-tight">
+                <h1 className="text-lg sm:text-xl font-semibold text-white tracking-tight">
                   {perfil?.nombre_negocio}
                 </h1>
-                <p className="text-sm text-zinc-400 font-light">
+                <p className="text-xs sm:text-sm text-zinc-400 font-light">
                   {perfil?.nombre_completo}
                 </p>
               </div>
@@ -293,63 +292,64 @@ export default function Dashboard() {
 
             <Button
               onClick={handleLogout}
-              className="flex items-center gap-2 bg-white/10 hover:bg-white/20 text-white border-white/20"
+              className="flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border-white/20 w-full sm:w-auto"
             >
               <LogOut className="w-4 h-4" />
               <span className="hidden sm:inline">Cerrar Sesión</span>
+              <span className="sm:hidden text-sm">Salir</span>
             </Button>
           </div>
         </div>
       </header>
 
-      <main className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-8">
+      <main className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h2 className="text-3xl font-light text-white mb-2">
+          <h2 className="text-2xl sm:text-3xl font-light text-white mb-2">
             Bienvenido de vuelta
           </h2>
-          <p className="text-zinc-400 font-light">
+          <p className="text-sm sm:text-base text-zinc-400 font-light">
             Aquí está un resumen de tu negocio
           </p>
         </div>
 
         {/* Comparativa Mensual */}
-        <div className="mb-8 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-6">
-          <div className="flex items-center justify-between">
+        <div className="mb-8 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-4 sm:p-6">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
-              <p className="text-sm text-zinc-400 font-light mb-1">Ventas este mes</p>
-              <h3 className="text-4xl font-bold text-white mb-2">
+              <p className="text-xs sm:text-sm text-zinc-400 font-light mb-1">Ventas este mes</p>
+              <h3 className="text-3xl sm:text-4xl font-bold text-white mb-2">
                 ${stats.ventasMesActual.toLocaleString()}
               </h3>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 <div className={`flex items-center gap-1 ${getCambioColor()}`}>
                   {getCambioIcon()}
                   <span className="text-sm font-semibold">
                     {Math.abs(stats.cambioMensual).toFixed(1)}%
                   </span>
                 </div>
-                <span className="text-sm text-zinc-500 font-light">
+                <span className="text-xs sm:text-sm text-zinc-500 font-light">
                   vs mes anterior (${stats.ventasMesAnterior.toLocaleString()})
                 </span>
               </div>
             </div>
-            <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center">
-              <TrendingUp className="w-8 h-8 text-green-400" />
+            <div className="w-14 h-14 sm:w-16 sm:h-16 bg-green-500/20 rounded-full flex items-center justify-center mx-auto sm:mx-0">
+              <TrendingUp className="w-7 h-7 sm:w-8 sm:h-8 text-green-400" />
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
           <button
             onClick={() => router.push('/dashboard/productos')}
-            className="bg-white/5 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:bg-white/10 hover:border-blue-400/50 transition-all text-left group"
+            className="bg-white/5 backdrop-blur-sm p-4 sm:p-6 rounded-xl border border-white/10 hover:bg-white/10 hover:border-blue-400/50 transition-all text-left group"
           >
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Package className="w-6 h-6 text-blue-400" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-500/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Package className="w-5 h-5 sm:w-6 sm:h-6 text-blue-400" />
               </div>
               <ArrowRight className="w-5 h-5 text-zinc-500 group-hover:text-blue-400 group-hover:translate-x-1 transition-all" />
             </div>
-            <h3 className="text-2xl font-semibold text-white mb-1">
+            <h3 className="text-xl sm:text-2xl font-semibold text-white mb-1">
               {stats.productos}
             </h3>
             <p className="text-sm text-zinc-400 font-light">Productos</p>
@@ -357,15 +357,15 @@ export default function Dashboard() {
 
           <button
             onClick={() => router.push('/dashboard/ventas')}
-            className="bg-white/5 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:bg-white/10 hover:border-green-400/50 transition-all text-left group"
+            className="bg-white/5 backdrop-blur-sm p-4 sm:p-6 rounded-xl border border-white/10 hover:bg-white/10 hover:border-green-400/50 transition-all text-left group"
           >
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-green-500/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                <TrendingUp className="w-6 h-6 text-green-400" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-green-500/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-green-400" />
               </div>
               <ArrowRight className="w-5 h-5 text-zinc-500 group-hover:text-green-400 group-hover:translate-x-1 transition-all" />
             </div>
-            <h3 className="text-2xl font-semibold text-white mb-1">
+            <h3 className="text-xl sm:text-2xl font-semibold text-white mb-1">
               ${stats.ventasHoy.toLocaleString()}
             </h3>
             <p className="text-sm text-zinc-400 font-light">Ventas de hoy</p>
@@ -373,15 +373,15 @@ export default function Dashboard() {
 
           <button
             onClick={() => router.push('/dashboard/clientes')}
-            className="bg-white/5 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:bg-white/10 hover:border-purple-400/50 transition-all text-left group"
+            className="bg-white/5 backdrop-blur-sm p-4 sm:p-6 rounded-xl border border-white/10 hover:bg-white/10 hover:border-purple-400/50 transition-all text-left group"
           >
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                <Users className="w-6 h-6 text-purple-400" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-purple-500/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                <Users className="w-5 h-5 sm:w-6 sm:h-6 text-purple-400" />
               </div>
               <ArrowRight className="w-5 h-5 text-zinc-500 group-hover:text-purple-400 group-hover:translate-x-1 transition-all" />
             </div>
-            <h3 className="text-2xl font-semibold text-white mb-1">
+            <h3 className="text-xl sm:text-2xl font-semibold text-white mb-1">
               {stats.clientes}
             </h3>
             <p className="text-sm text-zinc-400 font-light">Clientes</p>
@@ -389,15 +389,15 @@ export default function Dashboard() {
 
           <button
             onClick={() => router.push('/dashboard/reportes')}
-            className="bg-white/5 backdrop-blur-sm p-6 rounded-xl border border-white/10 hover:bg-white/10 hover:border-orange-400/50 transition-all text-left group"
+            className="bg-white/5 backdrop-blur-sm p-4 sm:p-6 rounded-xl border border-white/10 hover:bg-white/10 hover:border-orange-400/50 transition-all text-left group"
           >
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-orange-500/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
-                <BarChart3 className="w-6 h-6 text-orange-400" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-orange-500/20 rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform">
+                <BarChart3 className="w-5 h-5 sm:w-6 sm:h-6 text-orange-400" />
               </div>
               <ArrowRight className="w-5 h-5 text-zinc-500 group-hover:text-orange-400 group-hover:translate-x-1 transition-all" />
             </div>
-            <h3 className="text-2xl font-semibold text-white mb-1">
+            <h3 className="text-xl sm:text-2xl font-semibold text-white mb-1">
               {stats.ventas}
             </h3>
             <p className="text-sm text-zinc-400 font-light">Ventas realizadas</p>
@@ -405,18 +405,18 @@ export default function Dashboard() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <div className="lg:col-span-2 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-6">
+          <div className="lg:col-span-2 bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-4 sm:p-6">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-green-400" />
+              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-green-500/20 rounded-lg flex items-center justify-center">
+                <TrendingUp className="w-4 h-4 sm:w-5 sm:h-5 text-green-400" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white">Ventas de los últimos 7 días</h3>
-                <p className="text-sm text-zinc-400 font-light">Evolución diaria de ventas</p>
+                <h3 className="text-base sm:text-lg font-semibold text-white">Ventas de los últimos 7 días</h3>
+                <p className="text-xs sm:text-sm text-zinc-400 font-light">Evolución diaria de ventas</p>
               </div>
             </div>
 
-            <div className="h-64 relative">
+            <div className="h-60 sm:h-64 relative">
               <div className="absolute inset-0 flex flex-col justify-between">
                 {[0, 1, 2, 3, 4].map((i) => (
                   <div key={i} className="border-t border-white/10"></div>
@@ -495,10 +495,12 @@ export default function Dashboard() {
                 })}
               </svg>
 
-              <div className="absolute bottom-0 w-full flex justify-between px-2">
+              <div className="absolute bottom-0 w-full flex justify-between px-1 sm:px-2">
                 {ventasPorDia.map((venta, index) => (
                   <div key={index} className="flex flex-col items-center">
-                    <p className="text-xs font-medium text-zinc-400 mt-2">{venta.dia}</p>
+                    <p className="text-[10px] sm:text-xs font-medium text-zinc-400 mt-2">
+                      {venta.dia}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -517,7 +519,7 @@ export default function Dashboard() {
                         style={{ height: `${altura}%` }}
                       >
                         {venta.total > 0 && (
-                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 bg-white text-zinc-900 text-xs px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg">
+                          <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1.5 sm:mb-2 bg-white text-zinc-900 text-[10px] sm:text-xs px-2.5 sm:px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap shadow-lg">
                             <div className="font-semibold">${venta.total.toLocaleString()}</div>
                             <div className="text-zinc-600">{venta.dia}</div>
                           </div>
@@ -530,19 +532,19 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-6">
+          <div className="bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-4 sm:p-6">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
-                <Clock className="w-5 h-5 text-blue-400" />
+              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-blue-500/20 rounded-lg flex items-center justify-center">
+                <Clock className="w-4 h-4 sm:w-5 h-5 text-blue-400" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white">Últimas Ventas</h3>
-                <p className="text-sm text-zinc-400 font-light">Ventas recientes</p>
+                <h3 className="text-base sm:text-lg font-semibold text-white">Últimas Ventas</h3>
+                <p className="text-xs sm:text-sm text-zinc-400 font-light">Ventas recientes</p>
               </div>
             </div>
 
             {ultimasVentas.length === 0 ? (
-              <p className="text-center text-zinc-500 py-4 font-light">
+              <p className="text-center text-zinc-500 py-4 font-light text-sm">
                 Sin ventas registradas
               </p>
             ) : (
@@ -553,8 +555,10 @@ export default function Dashboard() {
                     className="flex items-center justify-between bg-white/5 p-3 rounded-lg border border-white/10"
                   >
                     <div>
-                      <p className="font-medium text-white text-sm">#{venta.id.slice(0, 8)}</p>
-                      <p className="text-xs text-zinc-400">
+                      <p className="font-medium text-white text-xs sm:text-sm">
+                        #{venta.id.slice(0, 8)}
+                      </p>
+                      <p className="text-[10px] sm:text-xs text-zinc-400">
                         {new Date(venta.created_at).toLocaleString('es-CO', {
                           day: '2-digit',
                           month: 'short',
@@ -574,29 +578,37 @@ export default function Dashboard() {
         </div>
 
         {productosBajoStock.length > 0 && (
-          <div className="bg-red-500/10 backdrop-blur-sm border border-red-500/30 rounded-xl p-6">
+          <div className="bg-red-500/10 backdrop-blur-sm border border-red-500/30 rounded-xl p-4 sm:p-6">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 bg-red-500/20 rounded-lg flex items-center justify-center">
-                <AlertTriangle className="w-5 h-5 text-red-400" />
+              <div className="w-9 h-9 sm:w-10 sm:h-10 bg-red-500/20 rounded-lg flex items-center justify-center">
+                <AlertTriangle className="w-4 h-4 sm:w-5 sm:h-5 text-red-400" />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white">Alerta de Stock Bajo</h3>
-                <p className="text-sm text-zinc-400 font-light">Productos que necesitan reposición urgente</p>
+                <h3 className="text-base sm:text-lg font-semibold text-white">Alerta de Stock Bajo</h3>
+                <p className="text-xs sm:text-sm text-zinc-400 font-light">
+                  Productos que necesitan reposición urgente
+                </p>
               </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
               {productosBajoStock.map((producto) => (
                 <div
                   key={producto.id}
                   className="bg-white/5 p-4 rounded-lg border border-red-500/30 flex flex-col items-center text-center"
                 >
-                  <div className="w-12 h-12 bg-red-500/20 rounded-full flex items-center justify-center mb-3">
-                    <TrendingDown className="w-6 h-6 text-red-400" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-red-500/20 rounded-full flex items-center justify-center mb-3">
+                    <TrendingDown className="w-5 h-5 sm:w-6 sm:h-6 text-red-400" />
                   </div>
-                  <p className="font-medium text-white text-sm mb-1">{producto.nombre}</p>
-                  <p className="text-xs text-zinc-400 mb-2">Stock restante</p>
-                  <p className="text-2xl font-bold text-red-400">{producto.stock}</p>
+                  <p className="font-medium text-white text-xs sm:text-sm mb-1">
+                    {producto.nombre}
+                  </p>
+                  <p className="text-[11px] sm:text-xs text-zinc-400 mb-2">
+                    Stock restante
+                  </p>
+                  <p className="text-xl sm:text-2xl font-bold text-red-400">
+                    {producto.stock}
+                  </p>
                 </div>
               ))}
             </div>
